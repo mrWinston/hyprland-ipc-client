@@ -145,7 +145,7 @@ func (c *ipc) Receive() ([]ReceivedData, error) {
 }
 
 func (c *ipc) Dispatch(a Args) ([]byte, error) {
-	a.Push("dispatch")
+	a.PushBack("dispatch")
 
 	return c.request(a)
 }
