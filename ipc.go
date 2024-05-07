@@ -25,15 +25,14 @@ type ReceivedData struct {
 type IPCClient struct {
 	conn  net.Conn
 	wconn *net.UnixAddr
-	sign  string
 }
 
-func NewClient(sign string) *IPCClient {
-	if sign == "" {
-		panic("sign is empty")
+func NewClient(hyprlandDir string) *IPCClient {
+	if hyprlandDir == "" {
+		panic("hyprandDir is empty")
 	}
 
-	conn, err := net.Dial("unix", "/tmp/hypr/"+sign+"/.socket2.sock")
+	conn, err := net.Dial("unix", hyprlandDir +"/.socket2.sock")
 	if err != nil {
 		panic(err)
 	}
@@ -42,9 +41,8 @@ func NewClient(sign string) *IPCClient {
 		conn: conn,
 		wconn: &net.UnixAddr{
 			Net:  "unix",
-			Name: "/tmp/hypr/" + sign + "/.socket.sock",
+			Name: hyprlandDir + "/.socket.sock",
 		},
-		sign: sign,
 	}
 }
 
